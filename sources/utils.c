@@ -6,11 +6,11 @@
 /*   By: vcavalca <vcavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 17:55:52 by vcavalca          #+#    #+#             */
-/*   Updated: 2021/08/31 18:48:15 by vcavalca         ###   ########.fr       */
+/*   Updated: 2021/08/31 20:35:02 by vcavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../includes/fractol.h"
 
 void	my_mlx_pixel_put(t_img_data	*img, int x, int y, int color)
 {

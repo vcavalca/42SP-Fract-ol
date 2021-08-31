@@ -6,11 +6,11 @@
 /*   By: vcavalca <vcavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 14:31:40 by vcavalca          #+#    #+#             */
-/*   Updated: 2021/08/31 18:46:01 by vcavalca         ###   ########.fr       */
+/*   Updated: 2021/08/31 20:34:48 by vcavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../includes/fractol.h"
 
 int	main(void)
 {

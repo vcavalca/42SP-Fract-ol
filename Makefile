@@ -6,53 +6,47 @@
 #    By: vcavalca <vcavalca@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/14 15:44:46 by vcavalca          #+#    #+#              #
-#    Updated: 2021/08/31 15:44:05 by vcavalca         ###   ########.fr        #
+#    Updated: 2021/08/31 20:36:34 by vcavalca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
 
-LIBFT_DIR = libft
-LIBFT= $(LIBFT_DIR)/libft.a
+MLX_LINUX = includes/minilibx-linux
 
-MLX_DIR = minilibx-linux
-MLX = $(MLX_DIR)/libmlx.a
+CC = gcc
+CFLAGS = -Wall -Werror -Wextra
 
-OBJ_DIR = obj
+LINUX_FLAGS = -Lmlx_Linux -L $(MLX_LINUX) -lmlx_Linux -lXext -lX11 -lm
+LINUX_INCLUDE = -I $(MLX_LINUX)
 
-HEADER = fractol.h
+LIBS = includes/libft/libft.a
 
-FT_FILES = main.c
+SRCS = sources/fractol.c\
+	sources/utils.c
 
-SRC = $(FT_FILES)
-OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
-
-FLAGS = -Wall -Wextra -Werror -Imlx
-CC = clang $(FLAGS)
-LIB_FLAGS = -lft -lXext -lX11 -lmlx 
+OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(MLX) $(OBJ)
-	$(CC) $(OBJ) -L$(LIBFT_DIR) -L$(MLX_DIR) $(LIB_FLAGS) -o $(NAME)
+.c.o:
+	$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ_DIR)/%.o: $(SRC) $(HEADER)
-	@mkdir obj -p obj
-	$(CC) -c -o $@ $<
+$(NAME): $(OBJS) $(LIBS) $(MLX_LINUX)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LINUX_INCLUDE) $(LINUX_FLAGS) $(LIBS)
 
-$(LIBFT):
-	make -C $(LIBFT_DIR)
+$(LIBS):
+	$(MAKE) -C includes/libft/
 
-$(MLX):
-	make -C $(MLX_DIR)
+$(MLX_LINUX):
+	$(MAKE) -C $(MLX_LINUX)
 
-clean: 
-	$(RM) $(OBJ)
+clean:
+	rm -rf $(OBJS)
+	$(MAKE) fclean -C includes/libft/
 
 fclean: clean
-	@make -C $(MLX_DIR) clean
-	@make -C $(LIBFT_DIR) fclean
-	$(RM) $(NAME)
+	rm -rf $(NAME)
 
 re: fclean all
 
