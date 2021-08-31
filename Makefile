@@ -6,7 +6,7 @@
 #    By: vcavalca <vcavalca@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/14 15:44:46 by vcavalca          #+#    #+#              #
-#    Updated: 2021/08/31 15:33:02 by vcavalca         ###   ########.fr        #
+#    Updated: 2021/08/31 15:44:05 by vcavalca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,13 +27,14 @@ FT_FILES = main.c
 SRC = $(FT_FILES)
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 
-FLAGS = -Wall -Wextra -Werror  -I/usr/include -Imlx_linux -O3
+FLAGS = -Wall -Wextra -Werror -Imlx
 CC = clang $(FLAGS)
+LIB_FLAGS = -lft -lXext -lX11 -lmlx 
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(MLX) $(OBJ)
-	$(CC) $(OBJ) -L$(LIBFT_DIR) -L$(MLX_DIR) -o $(NAME)
+	$(CC) $(OBJ) -L$(LIBFT_DIR) -L$(MLX_DIR) $(LIB_FLAGS) -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC) $(HEADER)
 	@mkdir obj -p obj
