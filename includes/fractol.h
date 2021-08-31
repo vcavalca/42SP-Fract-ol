@@ -6,7 +6,7 @@
 /*   By: vcavalca <vcavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 12:30:40 by vcavalca          #+#    #+#             */
-/*   Updated: 2021/08/31 19:15:38 by vcavalca         ###   ########.fr       */
+/*   Updated: 2021/08/31 20:25:07 by vcavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include "libft/libft.h"
-# include "minilibx-linux/mlx.h"
-# include "minilibx-linux/mlx_int.h"
+# include "minilibx/mlx.h"
 
 /*window size*/
 # define WIN_X 1024
