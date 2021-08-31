@@ -7,3 +7,12 @@ Description: This project’s goal is to create a small fractal exploration prog
 - Result: -
 
 Need any help: vcavalca@student.42sp.org.br
+
+## Clone
+
+This repository includes submodule. So if you want to clone it, you can use the following command:
+
+```
+git clone --recurse-submodules https://github.com/vcavalca/42SP-Fract-ol.git
+```
+
