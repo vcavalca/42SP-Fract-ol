@@ -1,6 +1,6 @@
-[submodule "includes/minilibx-linux"]
-	path = includes/minilibx-linux
-	url = https://github.com/42Paris/minilibx-linux.git
 [submodule "includes/libft"]
 	path = includes/libft
 	url = https://github.com/vcavalca/42SP-libft.git
+[submodule "includes/minilibx"]
+	path = includes/minilibx
+	url = https://github.com/42Paris/minilibx-linux.git
