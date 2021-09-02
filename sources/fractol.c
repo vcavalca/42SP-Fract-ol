@@ -6,25 +6,19 @@
 /*   By: vcavalca <vcavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 14:31:40 by vcavalca          #+#    #+#             */
-/*   Updated: 2021/08/31 20:34:48 by vcavalca         ###   ########.fr       */
+/*   Updated: 2021/09/02 10:27:34 by vcavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-int	main(void)
+int	main(int argc, char **argv)
 {
-	void		*mlx;
-	void		*mlx_win;
-	t_img_data	img;
+	int	i;
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, WIN_X, WIN_Y, "Fractol");
-	img.img = mlx_new_image(mlx, WIN_X, WIN_Y);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-			&img.endian);
-	my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_loop(mlx);
+	if (argc >= 2 && argv <= 11)
+	{
+		i = 1;
+	}
 	return (0);
 }
