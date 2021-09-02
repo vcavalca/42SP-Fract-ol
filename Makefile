@@ -6,7 +6,7 @@
 #    By: vcavalca <vcavalca@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/14 15:44:46 by vcavalca          #+#    #+#              #
-#    Updated: 2021/08/31 21:00:47 by vcavalca         ###   ########.fr        #
+#    Updated: 2021/09/02 04:00:35 by vcavalca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,18 +34,16 @@ all: $(NAME)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBS)
-	$(MLX_LINUX)
+	@cd includes/minilibx-linux/ && make
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LINUX_INCLUDE) $(LINUX_FLAGS) $(LIBS)
 
 $(LIBS):
 	$(MAKE) -C includes/libft/
 
-$(MLX_LINUX):
-	$(MAKE) -C $(MLX_LINUX)
-
 clean:
 	rm -rf $(OBJS)
 	$(MAKE) fclean -C includes/libft/
+	@cd includes/minilibx-linux/ && make clean
 
 fclean: clean
 	rm -rf $(NAME)
