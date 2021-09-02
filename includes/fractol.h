@@ -6,7 +6,7 @@
 /*   By: vcavalca <vcavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 12:30:40 by vcavalca          #+#    #+#             */
-/*   Updated: 2021/09/02 06:25:27 by vcavalca         ###   ########.fr       */
+/*   Updated: 2021/09/02 06:32:29 by vcavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,9 @@
 # include <stdint.h>
 # include "libft/libft.h"
 # include "minilibx-linux/mlx.h"
-# include "colors.h"
+# include "screen_setup.h"
 # include "error_messages.h"
 # include "key_linux.h"
-
-/*Screen resolution*/
-# define SCREEN_X 1024
-# define SCREEN_Y 768
 
 /*Struct Image MLX*/
 typedef struct s_img_data
