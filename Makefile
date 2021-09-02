@@ -6,60 +6,72 @@
 #    By: vcavalca <vcavalca@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/14 15:44:46 by vcavalca          #+#    #+#              #
-#    Updated: 2021/09/02 04:29:34 by vcavalca         ###   ########.fr        #
+#    Updated: 2021/09/02 10:21:54 by vcavalca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
 
-INCLUDE_DIR = includes
-SRC_DIR = sources
-OBJ_DIR = obj
-LIBFT_DIR = libft
-MLX_DIR = minilibx-linux
+CFLAGS = -Wall -Werror -Wextra
+CC = clang $(CFLAGS)
+LINUX_FLAGS =  -lft -lXext -lX11 -lmlx
+LINUX_INCLUDE = -I$(MINILIBX_DIRECTORY)
 
-LIBFT = $(INCLUDE_DIR)/$(LIBFT_DIR)/libft.a
+INCLUDE_DIR = includes/
+SOURCES_DIRECTORY = sources/
+OBJECTS_DIRECTORY = objects/
 
-MLX = $(INCLUDE_DIR)/$(MLX_DIR)/libmlx.a
+LIBFT_DIRECTORY = $(INCLUDE_DIR)libft/
+LIBFT = $(LIBFT_DIRECTORY)libft.a
+LIBFT_HEADERS = $(LIBFT_DIRECTORY)
+
+MINILIBX_DIRECTORY = $(INCLUDE_DIR)minilibx-linux/
+MINILIBX = $(MINILIBX_DIRECTORY)libmlx.a
+MINILIBX_HEADERS = $(MINILIBX_DIRECTORY)
 
 VALGRIND = valgrind --leak-check=full -q
 
-HEADERS = $(INCLUDE_DIR)/fractol.h
+HEADERS_DIRECTORY = $(INCLUDE_DIR)
+HEADERS_FILES = fractol.h			\
+				error_messages.h	\
+				key_linux.h			\
+				screen_setup.h
+HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_FILES))
 
-SRC_FILES = fractol.c					\
-			utils.c
+SOURCES_FILES =	fractol.c	\
+				utils.c
+SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_FILES))
 
+OBJECTS_LIST = $(patsubst %.c, %.o, $(SOURCES_FILES))
+OBJECTS	= $(addprefix $(OBJECTS_DIRECTORY), $(OBJECTS_LIST))
 
-SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
-OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-
-CFLAGS = -Wall -Werror -Wextra
-CC = clang $(CFLAGS)
-LIBFLAGS = -Lmlx_Linux -L$(INCLUDE_DIR)/$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm
+.PHONY: all clean fclean re
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(MLX) $(OBJ)
-	$(CC)  $(OBJ) -L$(LIBFT_DIR) -L$(MLX_DIR) $(LIBFLAGS) -o $(NAME)
+$(NAME): $(LIBFT) $(MINILIBX) $(OBJECTS_DIRECTORY) $(OBJECTS)
+	$(CC) $(OBJECTS) -L$(LIBFT_DIRECTORY) -L$(MINILIBX_DIRECTORY) $(LINUX_FLAGS) -o $(NAME)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
-	@mkdir -p obj
-	$(CC) -c -I$(INCLUDE_DIR) -o $@ $<
+$(OBJECTS_DIRECTORY):
+	@mkdir -p $(OBJECTS_DIRECTORY)
+
+$(OBJECTS_DIRECTORY)%.o : $(SOURCES_DIRECTORY)%.c $(HEADERS)
+	@$(CC) -c $(LINUX_INCLUDE) $< -o $@
 
 $(LIBFT):
-	make -C $(INCLUDE_DIR)/$(LIBFT_DIR)
+	@make -C $(LIBFT_DIRECTORY)
 
-$(MLX):
-	make -C $(INCLUDE_DIR)/$(MLX_DIR)
+$(MINILIBX):
+	@make -C $(MINILIBX_DIRECTORY)
 
 clean:
-	$(RM) $(OBJ)
+	@$(MAKE) -sC $(LIBFT_DIRECTORY) clean
+	@$(MAKE) -sC $(MINILIBX_DIRECTORY) clean
+	@rm -rf $(OBJECTS_DIRECTORY)
 
 fclean: clean
-	@make -C $(INCLUDE_DIR)/$(MLX_DIR) clean
-	@make -C $(INCLUDE_DIR)/$(LIBFT_DIR) fclean
-	$(RM) $(NAME)
+	@rm -f $(MINILIBX)
+	@rm -f $(LIBFT)
+	@rm -f $(NAME)
 
 re: fclean all
-
-.PHONY: $(LIBFT)
