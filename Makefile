@@ -6,48 +6,60 @@
 #    By: vcavalca <vcavalca@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/14 15:44:46 by vcavalca          #+#    #+#              #
-#    Updated: 2021/09/02 04:00:35 by vcavalca         ###   ########.fr        #
+#    Updated: 2021/09/02 04:29:34 by vcavalca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
 
-INCLUDES_DIR = ./includes
-MLX_LINUX = $(INCLUDES_DIR)/minilibx-linux
+INCLUDE_DIR = includes
+SRC_DIR = sources
+OBJ_DIR = obj
+LIBFT_DIR = libft
+MLX_DIR = minilibx-linux
 
-CC = gcc
-CFLAGS = -g3 -Wall -Werror -Wextra
+LIBFT = $(INCLUDE_DIR)/$(LIBFT_DIR)/libft.a
 
-LINUX_FLAGS = -Lmlx_linux -L $(MLX_LINUX) -lmlx_linux -lXext -lX11 -lm -lz
-LINUX_INCLUDE = -I $(MLX_LINUX)
+MLX = $(INCLUDE_DIR)/$(MLX_DIR)/libmlx.a
 
-LIBS = includes/libft/libft.a
+VALGRIND = valgrind --leak-check=full -q
 
-SRCS = sources/fractol.c\
-	sources/utils.c
+HEADERS = $(INCLUDE_DIR)/fractol.h
 
-OBJS = $(SRCS:.c=.o)
+SRC_FILES = fractol.c					\
+			utils.c
+
+
+SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
+OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+
+CFLAGS = -Wall -Werror -Wextra
+CC = clang $(CFLAGS)
+LIBFLAGS = -Lmlx_Linux -L$(INCLUDE_DIR)/$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm
 
 all: $(NAME)
 
-.c.o:
-	$(CC) $(CFLAGS) -c $< -o $@
+$(NAME): $(LIBFT) $(MLX) $(OBJ)
+	$(CC)  $(OBJ) -L$(LIBFT_DIR) -L$(MLX_DIR) $(LIBFLAGS) -o $(NAME)
 
-$(NAME): $(OBJS) $(LIBS)
-	@cd includes/minilibx-linux/ && make
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LINUX_INCLUDE) $(LINUX_FLAGS) $(LIBS)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
+	@mkdir -p obj
+	$(CC) -c -I$(INCLUDE_DIR) -o $@ $<
 
-$(LIBS):
-	$(MAKE) -C includes/libft/
+$(LIBFT):
+	make -C $(INCLUDE_DIR)/$(LIBFT_DIR)
+
+$(MLX):
+	make -C $(INCLUDE_DIR)/$(MLX_DIR)
 
 clean:
-	rm -rf $(OBJS)
-	$(MAKE) fclean -C includes/libft/
-	@cd includes/minilibx-linux/ && make clean
+	$(RM) $(OBJ)
 
 fclean: clean
-	rm -rf $(NAME)
+	@make -C $(INCLUDE_DIR)/$(MLX_DIR) clean
+	@make -C $(INCLUDE_DIR)/$(LIBFT_DIR) fclean
+	$(RM) $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: $(LIBFT)
