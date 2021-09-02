@@ -6,7 +6,7 @@
 #    By: vcavalca <vcavalca@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/14 15:44:46 by vcavalca          #+#    #+#              #
-#    Updated: 2021/09/02 10:21:54 by vcavalca         ###   ########.fr        #
+#    Updated: 2021/09/02 20:20:56 by vcavalca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = fractol
 
 CFLAGS = -Wall -Werror -Wextra
 CC = clang $(CFLAGS)
-LINUX_FLAGS =  -lft -lXext -lX11 -lmlx
+LINUX_FLAGS =  -lft -lXext -lX11 -lmlx -lm
 LINUX_INCLUDE = -I$(MINILIBX_DIRECTORY)
 
 INCLUDE_DIR = includes/
@@ -35,11 +35,18 @@ HEADERS_DIRECTORY = $(INCLUDE_DIR)
 HEADERS_FILES = fractol.h			\
 				error_messages.h	\
 				key_linux.h			\
-				screen_setup.h
+				screen_setup.h		\
+				calculations.h
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_FILES))
 
-SOURCES_FILES =	fractol.c	\
-				utils.c
+SOURCES_FILES =	fractol.c				\
+				utils.c					\
+				fractal_julia.c 		\
+				fractal_mandelbrot.c	\
+				fractal_burning_ship.c	\
+				calculations.c			\
+				hooks.c					\
+				fractal.c
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_FILES))
 
 OBJECTS_LIST = $(patsubst %.c, %.o, $(SOURCES_FILES))
