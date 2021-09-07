@@ -6,7 +6,7 @@
 #    By: vcavalca <vcavalca@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/14 15:44:46 by vcavalca          #+#    #+#              #
-#    Updated: 2021/09/02 20:20:56 by vcavalca         ###   ########.fr        #
+#    Updated: 2021/09/07 07:21:33 by vcavalca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,21 +32,13 @@ MINILIBX_HEADERS = $(MINILIBX_DIRECTORY)
 VALGRIND = valgrind --leak-check=full -q
 
 HEADERS_DIRECTORY = $(INCLUDE_DIR)
-HEADERS_FILES = fractol.h			\
-				error_messages.h	\
-				key_linux.h			\
-				screen_setup.h		\
-				calculations.h
+HEADERS_FILES = fractol.h
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_FILES))
 
 SOURCES_FILES =	fractol.c				\
 				utils.c					\
-				fractal_julia.c 		\
 				fractal_mandelbrot.c	\
-				fractal_burning_ship.c	\
-				calculations.c			\
-				hooks.c					\
-				fractal.c
+				fractal_julia.c
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_FILES))
 
 OBJECTS_LIST = $(patsubst %.c, %.o, $(SOURCES_FILES))
