@@ -6,7 +6,7 @@
 /*   By: vcavalca <vcavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 12:30:40 by vcavalca          #+#    #+#             */
-/*   Updated: 2021/09/07 07:47:52 by vcavalca         ###   ########.fr       */
+/*   Updated: 2021/09/07 08:17:38 by vcavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
-# include "libft/libft.h"
+# include "libft/incl/libft.h"
 # include "minilibx-linux/mlx.h"
 
 # define SCREEN_X 1024
