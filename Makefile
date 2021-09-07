@@ -6,71 +6,38 @@
 #    By: vcavalca <vcavalca@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/14 15:44:46 by vcavalca          #+#    #+#              #
-#    Updated: 2021/09/07 07:21:33 by vcavalca         ###   ########.fr        #
+#    Updated: 2021/09/07 08:34:08 by vcavalca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
 
-CFLAGS = -Wall -Werror -Wextra
-CC = clang $(CFLAGS)
-LINUX_FLAGS =  -lft -lXext -lX11 -lmlx -lm
-LINUX_INCLUDE = -I$(MINILIBX_DIRECTORY)
+CC = clang
+CFLAGS = -c -Wall -Werror -Wextra
 
-INCLUDE_DIR = includes/
-SOURCES_DIRECTORY = sources/
-OBJECTS_DIRECTORY = objects/
+SRCS = sources/fractol.c sources/utils.c sources/fractal_mandelbrot.c sources/fractal_julia.c
 
-LIBFT_DIRECTORY = $(INCLUDE_DIR)libft/
-LIBFT = $(LIBFT_DIRECTORY)libft.a
-LIBFT_HEADERS = $(LIBFT_DIRECTORY)
-
-MINILIBX_DIRECTORY = $(INCLUDE_DIR)minilibx-linux/
-MINILIBX = $(MINILIBX_DIRECTORY)libmlx.a
-MINILIBX_HEADERS = $(MINILIBX_DIRECTORY)
-
-VALGRIND = valgrind --leak-check=full -q
-
-HEADERS_DIRECTORY = $(INCLUDE_DIR)
-HEADERS_FILES = fractol.h
-HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_FILES))
-
-SOURCES_FILES =	fractol.c				\
-				utils.c					\
-				fractal_mandelbrot.c	\
-				fractal_julia.c
-SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_FILES))
-
-OBJECTS_LIST = $(patsubst %.c, %.o, $(SOURCES_FILES))
-OBJECTS	= $(addprefix $(OBJECTS_DIRECTORY), $(OBJECTS_LIST))
-
-.PHONY: all clean fclean re
+OBJ = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(MINILIBX) $(OBJECTS_DIRECTORY) $(OBJECTS)
-	$(CC) $(OBJECTS) -L$(LIBFT_DIRECTORY) -L$(MINILIBX_DIRECTORY) $(LINUX_FLAGS) -o $(NAME)
+$(NAME): $(OBJ)
+		@make -C includes/libft
+		@make -C includes/minilibx-linux
+		@$(CC) $(OBJ) -o $(NAME) -lXext -lX11 -lm includes/minilibx-linux/libmlx_Linux.a includes/libft/libft.a 
+		@echo "Compiling $(NAME) done"
 
-$(OBJECTS_DIRECTORY):
-	@mkdir -p $(OBJECTS_DIRECTORY)
+%.o: %.c
+	@$(CC) $(CFLAGS) -o $@ $<
 
-$(OBJECTS_DIRECTORY)%.o : $(SOURCES_DIRECTORY)%.c $(HEADERS)
-	@$(CC) -c $(LINUX_INCLUDE) $< -o $@
-
-$(LIBFT):
-	@make -C $(LIBFT_DIRECTORY)
-
-$(MINILIBX):
-	@make -C $(MINILIBX_DIRECTORY)
-
-clean:
-	@$(MAKE) -sC $(LIBFT_DIRECTORY) clean
-	@$(MAKE) -sC $(MINILIBX_DIRECTORY) clean
-	@rm -rf $(OBJECTS_DIRECTORY)
+clean: 
+		@rm -rf $(OBJ)
+		@make clean -C includes/libft
 
 fclean: clean
-	@rm -f $(MINILIBX)
-	@rm -f $(LIBFT)
-	@rm -f $(NAME)
+		@rm -rf $(NAME)
+		@make clean -C includes/minilibx-linux
+		@make fclean -C includes/libft
+		@echo "Removed $(NAME)"
 
 re: fclean all
