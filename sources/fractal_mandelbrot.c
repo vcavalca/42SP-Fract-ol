@@ -6,7 +6,7 @@
 /*   By: vcavalca <vcavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 16:48:39 by vcavalca          #+#    #+#             */
-/*   Updated: 2021/09/21 06:19:51 by vcavalca         ###   ########.fr       */
+/*   Updated: 2021/09/21 07:12:34 by vcavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	ft_mandelbrot(void)
 	mlx.mlx = mlx_init();
 	if (mlx.mlx == NULL)
 		return ;
-	mlx.win = mlx_new_window(mlx.mlx, mlx.x, mlx.y, "Mandelbrot");
+	mlx.win = mlx_new_window(mlx.mlx, mlx.x, mlx.y, "Fractal - Mandelbrot");
 	if (mlx.win == NULL)
 		return ;
 	ft_initialise(&mlx);
