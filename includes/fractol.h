@@ -6,7 +6,7 @@
 /*   By: vcavalca <vcavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 12:30:40 by vcavalca          #+#    #+#             */
-/*   Updated: 2021/09/07 08:17:38 by vcavalca         ###   ########.fr       */
+/*   Updated: 2021/09/21 06:22:33 by vcavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include "libft/incl/libft.h"
 # include "minilibx-linux/mlx.h"
 
-# define SCREEN_X 1024
-# define SCREEN_Y 768
+# define SCREEN_X 700
+# define SCREEN_Y 600
 
 /*Struct MLX*/
 typedef struct s_mlx
@@ -55,6 +55,6 @@ int		ft_esc_button(int key_code, t_mlx *mlx);
 
 void	ft_mandelbrot(void);
 void	ft_julia(double cr, double ci, int if_param);
-void	browse_julia(t_mlx *mlx);
+void	ft_browse_julia(t_mlx *mlx);
 
 #endif
