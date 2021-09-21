@@ -6,15 +6,13 @@
 /*   By: vcavalca <vcavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 16:48:39 by vcavalca          #+#    #+#             */
-/*   Updated: 2021/09/07 07:49:00 by vcavalca         ###   ########.fr       */
+/*   Updated: 2021/09/21 06:19:51 by vcavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-/*Formula Mandelbrot => Zn = (Zn - 1)² + C*/
-
-static void	calcul(t_mlx *mlx)
+static void	ft_calcul_mandelbrot(t_mlx *mlx)
 {
 	float	c_r;
 	float	c_i;
@@ -40,7 +38,7 @@ static void	calcul(t_mlx *mlx)
 		mlx->img_data[(mlx->x * mlx->data_y) + mlx->data_x] = 0x000B00EF * i;
 }
 
-static void	browse_mandelbrot(t_mlx *mlx)
+static void	ft_browse_mandelbrot(t_mlx *mlx)
 {
 	mlx->img_ptr = NULL;
 	mlx->img_ptr = mlx_new_image(mlx->mlx, mlx->x, mlx->y);
@@ -53,7 +51,7 @@ static void	browse_mandelbrot(t_mlx *mlx)
 		mlx->data_y = 0;
 		while (mlx->data_y < mlx->data_image_y)
 		{
-			calcul(mlx);
+			ft_calcul_mandelbrot(mlx);
 			mlx->data_y++;
 		}
 		mlx->data_x++;
@@ -62,7 +60,7 @@ static void	browse_mandelbrot(t_mlx *mlx)
 	mlx_destroy_image(mlx->mlx, mlx->img_ptr);
 }
 
-static int	zoom(int keycode, int x, int y, t_mlx *mlx)
+static int	ft_zoom(int keycode, int x, int y, t_mlx *mlx)
 {
 	if (keycode == 4)
 	{
@@ -74,7 +72,7 @@ static int	zoom(int keycode, int x, int y, t_mlx *mlx)
 			- (y / (mlx->data_zoom * 1.3));
 		mlx->data_zoom *= 1.3;
 		mlx->data_iteration_max++;
-		browse_mandelbrot(mlx);
+		ft_browse_mandelbrot(mlx);
 	}
 	if (keycode == 5)
 	{
@@ -86,12 +84,12 @@ static int	zoom(int keycode, int x, int y, t_mlx *mlx)
 			- (y / (mlx->data_zoom / 1.3));
 		mlx->data_zoom /= 1.3;
 		mlx->data_iteration_max--;
-		browse_mandelbrot(mlx);
+		ft_browse_mandelbrot(mlx);
 	}
 	return (0);
 }
 
-static void	initialise(t_mlx *mlx)
+static void	ft_initialise(t_mlx *mlx)
 {
 	mlx->data_zoom = 250;
 	mlx->data_x = 0;
@@ -101,7 +99,7 @@ static void	initialise(t_mlx *mlx)
 	mlx->data_iteration_max = 50;
 	mlx->data_image_x = SCREEN_X;
 	mlx->data_image_y = SCREEN_Y;
-	browse_mandelbrot(mlx);
+	ft_browse_mandelbrot(mlx);
 }
 
 void	ft_mandelbrot(void)
@@ -116,9 +114,9 @@ void	ft_mandelbrot(void)
 	mlx.win = mlx_new_window(mlx.mlx, mlx.x, mlx.y, "Mandelbrot");
 	if (mlx.win == NULL)
 		return ;
-	initialise(&mlx);
+	ft_initialise(&mlx);
 	mlx_key_hook(mlx.win, ft_esc_button, &mlx);
 	mlx_hook(mlx.win, 17, 0L, ft_close_button, &mlx);
-	mlx_hook(mlx.win, 4, 1L << 2, zoom, &mlx);
+	mlx_hook(mlx.win, 4, 1L << 2, ft_zoom, &mlx);
 	mlx_loop(mlx.mlx);
 }

@@ -6,15 +6,13 @@
 /*   By: vcavalca <vcavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 16:49:23 by vcavalca          #+#    #+#             */
-/*   Updated: 2021/09/07 07:49:43 by vcavalca         ###   ########.fr       */
+/*   Updated: 2021/09/21 06:33:04 by vcavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-/*Formula Julia  Zn = (Zn - 1)² + C*/
-
-static void	calcul(t_mlx *mlx)
+static void	ft_calcul_julia(t_mlx *mlx)
 {
 	float	z_r;
 	float	z_i;
@@ -36,7 +34,7 @@ static void	calcul(t_mlx *mlx)
 		mlx->img_data[(mlx->x * mlx->data_y) + mlx->data_x] = 0x0006000F * i;
 }
 
-void	browse_julia(t_mlx *mlx)
+void	ft_browse_julia(t_mlx *mlx)
 {
 	mlx->img_ptr = NULL;
 	mlx->img_ptr = mlx_new_image(mlx->mlx, mlx->x, mlx->y);
@@ -49,7 +47,7 @@ void	browse_julia(t_mlx *mlx)
 		mlx->data_y = 0;
 		while (mlx->data_y < mlx->data_image_y)
 		{
-			calcul(mlx);
+			ft_calcul_julia(mlx);
 			mlx->data_y++;
 		}
 		mlx->data_x++;
@@ -58,7 +56,7 @@ void	browse_julia(t_mlx *mlx)
 	mlx_destroy_image(mlx->mlx, mlx->img_ptr);
 }
 
-static int	zoom(int keycode, int x, int y, t_mlx *mlx)
+static int	ft_zoom(int keycode, int x, int y, t_mlx *mlx)
 {
 	if (keycode == 4)
 	{
@@ -70,7 +68,7 @@ static int	zoom(int keycode, int x, int y, t_mlx *mlx)
 			- (y / (mlx->data_zoom * 1.3));
 		mlx->data_zoom *= 1.3;
 		mlx->data_iteration_max++;
-		browse_julia(mlx);
+		ft_browse_julia(mlx);
 	}
 	if (keycode == 5)
 	{
@@ -82,12 +80,12 @@ static int	zoom(int keycode, int x, int y, t_mlx *mlx)
 			- (y / (mlx->data_zoom / 1.3));
 		mlx->data_zoom /= 1.3;
 		mlx->data_iteration_max--;
-		browse_julia(mlx);
+		ft_browse_julia(mlx);
 	}
 	return (0);
 }
 
-static void	initialise(t_mlx *mlx)
+static void	ft_initialise(t_mlx *mlx)
 {
 	mlx->data_zoom = 250;
 	mlx->data_x = 0;
@@ -97,7 +95,7 @@ static void	initialise(t_mlx *mlx)
 	mlx->data_iteration_max = 150;
 	mlx->data_image_x = SCREEN_X;
 	mlx->data_image_y = SCREEN_Y;
-	browse_julia(mlx);
+	ft_browse_julia(mlx);
 }
 
 void	ft_julia(double cr, double ci, int if_param)
@@ -113,8 +111,8 @@ void	ft_julia(double cr, double ci, int if_param)
 	mlx.win = mlx_new_window(mlx.mlx, mlx.x, mlx.y, "Fractal - Julia");
 	if (mlx.win == NULL)
 		return ;
-	initialise(&mlx);
-	mlx_mouse_hook(mlx.win, zoom, &mlx);
+	ft_initialise(&mlx);
+	mlx_mouse_hook(mlx.win, ft_zoom, &mlx);
 	mlx_hook(mlx.win, 17, 0L, ft_close_button, &mlx);
 	mlx_key_hook(mlx.win, ft_esc_button, &mlx);
 	mlx_loop(mlx.mlx);
