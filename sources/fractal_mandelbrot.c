@@ -6,7 +6,7 @@
 /*   By: vcavalca <vcavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 16:48:39 by vcavalca          #+#    #+#             */
-/*   Updated: 2021/09/21 07:12:34 by vcavalca         ###   ########.fr       */
+/*   Updated: 2021/09/21 07:18:06 by vcavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	ft_calcul_mandelbrot(t_mlx *mlx)
 	if (i == mlx->data_iteration_max)
 		mlx->img_data[(mlx->x * mlx->data_y) + mlx->data_x] = 0x00000000;
 	else
-		mlx->img_data[(mlx->x * mlx->data_y) + mlx->data_x] = 0x000B00EF * i;
+		mlx->img_data[(mlx->x * mlx->data_y) + mlx->data_x] = 0x000B0FEF * i;
 }
 
 static void	ft_browse_mandelbrot(t_mlx *mlx)

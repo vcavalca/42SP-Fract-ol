@@ -6,7 +6,7 @@
 /*   By: vcavalca <vcavalca@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 16:49:23 by vcavalca          #+#    #+#             */
-/*   Updated: 2021/09/21 06:33:04 by vcavalca         ###   ########.fr       */
+/*   Updated: 2021/09/21 07:21:37 by vcavalca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	ft_calcul_julia(t_mlx *mlx)
 	if (i == mlx->data_iteration_max)
 		mlx->img_data[(mlx->x * mlx->data_y) + mlx->data_x] = 0x00000000;
 	else
-		mlx->img_data[(mlx->x * mlx->data_y) + mlx->data_x] = 0x0006000F * i;
+		mlx->img_data[(mlx->x * mlx->data_y) + mlx->data_x] = 0x00060E0F * i;
 }
 
 void	ft_browse_julia(t_mlx *mlx)
