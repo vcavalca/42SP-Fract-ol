@@ -1,5 +1,5 @@
 # 42SP-Fract-ol
-My firt project in C with the miniLibX library, a 42São Paulo project. August/2021 - September/2021
+My first project in C with the miniLibX library, a project from 42São Paulo. August/2021 - September/2021
 
 Description: This project’s goal is to create a small fractal exploration program.
 
