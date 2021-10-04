@@ -3,8 +3,8 @@ My firt project in C with the miniLibX library, a 42São Paulo project. August/2
 
 Description: This project’s goal is to create a small fractal exploration program.
 
-- Actual Status: In progress
-- Result: -
+- Actual Status: Finished
+- Result: 100%
 
 Need any help: vcavalca@student.42sp.org.br
 
