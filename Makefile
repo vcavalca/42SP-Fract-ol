@@ -15,7 +15,7 @@ NAME = fractol
 CC = clang
 CFLAGS = -c -Wall -Werror -Wextra
 
-SRCS = sources/fractol.c sources/utils.c sources/fractal_mandelbrot.c sources/fractal_julia.c
+SRCS = sources/ft_fractol.c sources/ft_utils.c sources/ft_fractal_mandelbrot.c sources/ft_fractal_julia.c
 
 OBJ = $(SRCS:.c=.o)
 
